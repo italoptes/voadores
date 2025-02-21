@@ -1,0 +1,38 @@
+package Interfaces2;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        RepositorioDeVoadores repositorio = new RepositorioDeVoadores();
+        Random r = new Random();
+        povoaRepositorio(r, repositorio);
+        voaPlanaPousa(repositorio);
+    }
+
+    private static void voaPlanaPousa(RepositorioDeVoadores repositorio) {
+        for (Voador voadores : repositorio.getVoadores()){
+            // Esses 3 métodos são polimórficos, pois os objetos podem ser de tipos diferentes,
+            // mas por estarem relacionados a interface voador, se comportam como voadores.
+            voadores.voar();
+            voadores.planar();
+            voadores.pousar();
+        }
+    }
+
+    private static void povoaRepositorio(Random r, RepositorioDeVoadores repositorio) {
+        for (int i = 0; i < 10; i++) {
+            int numeroAleatorio = r.nextInt(3) + 1;
+            switch (numeroAleatorio){
+                case 1:
+                    repositorio.adicionaVoador(new GalinhaVoadora());
+                    break;
+                case 2:
+                    repositorio.adicionaVoador((new Drone("XTR5000")));
+                    break;
+                case 3:
+                    repositorio.adicionaVoador(new Passarinho("Grande"));
+                    break;
+            }
+        }
+    }
+}
